@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using EnfignaServidor.Modelo;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +12,35 @@ namespace EnfignaServidor.DAO
     internal class jugadorDAO
     {
 
-     
+
+        public int recuperarIDUsuario()
+        {
+            conexionBD conexion = new conexionBD();
+            Jugador player = new Jugador();
+            int idUsuario = 0;
+
+            string recuperarUsuarioQuery = "SELECT idUsuario FROM usuario WHERE usuario = '" + player.usuario + "'";
+
+            try { 
+                MySqlCommand comandoIdUsuario = new MySqlCommand(recuperarUsuarioQuery, conexion.establecerConexion());
+
+                MySqlDataReader lector = comandoIdUsuario.ExecuteReader();
+
+                if (lector.Read()) {
+                    idUsuario = lector.GetInt32("idUsuario");
+                }
+
+                conexion.cerrarConexion();
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("La verda no funciona, error: "+ ex);
+
+            }
+
+            return idUsuario; 
+        }
         public void CrearCuenta(TextBox usuario, TextBox password,  int halo) {
 
             try

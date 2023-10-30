@@ -8,5 +8,8 @@ namespace EnfignaServidor.Modelo
 {
     internal class Jugador
     {
+        public string usuario; 
+
+    
     }
 }
